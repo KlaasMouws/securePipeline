@@ -1,0 +1,48 @@
+name: Secure Pipeline
+
+on:
+  pull_request: # Zorgt ervoor dat de workflow bij elke pull request draait
+    branches:
+      - main
+      - dev
+
+jobs:
+  sast_scan:
+    name: Run SAST and Security Checks
+    runs-on: ubuntu-latest # Gebruik Ubuntu voor bredere compatibiliteit
+
+    steps:
+    # 1. Checkout code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 2. Set up Python environment
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.8
+
+    # 3. Install dependencies (voor checks en de eigen code)
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    # 4. Run Bandit (SAST)
+    - name: Run Bandit Scan
+      run: bandit -r .
+
+    # 5. Check dependencies for vulnerabilities (Safety)
+    - name: Check Dependencies
+      run: |
+        pip install safety
+        safety check --full-report
+
+    # 6. Check for hardcoded secrets (GitLeaks)
+    - name: Scan for secrets
+      uses: zricethezav/gitleaks-action@v2
+
+    # 7. Enforce checks (fout maken als een van de checks faalt)
+    - name: Fail Pipeline on Errors
+      if: ${{ failure() }}
+      run: echo "Security checks failed! Fix issues before merging." && exit 1
