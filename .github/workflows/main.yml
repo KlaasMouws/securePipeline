@@ -41,8 +41,11 @@ jobs:
 
     - name: Scan for secrets
       uses: zricethezav/gitleaks-action@v2
+      with:
+        args: --redact --verbose --report-path=gitleaks-report.sarif --source .
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
 
     # 7. Enforce checks (fout maken als een van de checks faalt)
