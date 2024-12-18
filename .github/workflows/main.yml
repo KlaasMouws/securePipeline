@@ -44,9 +44,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-
-
-    # 7. Enforce checks (fout maken als een van de checks faalt)
     - name: Fail Pipeline on Errors
       if: ${{ failure() }}
       run: echo "Security checks failed! Fix issues before merging." && exit 1
