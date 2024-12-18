@@ -41,8 +41,6 @@ jobs:
 
     - name: Scan for secrets
       uses: zricethezav/gitleaks-action@v2
-      with:
-        args: --redact --verbose --report-path=gitleaks-report.sarif --source .
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
