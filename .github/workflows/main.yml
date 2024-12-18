@@ -39,9 +39,11 @@ jobs:
         pip install safety
         safety check --full-report
 
-    # 6. Check for hardcoded secrets (GitLeaks)
     - name: Scan for secrets
       uses: zricethezav/gitleaks-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
     # 7. Enforce checks (fout maken als een van de checks faalt)
     - name: Fail Pipeline on Errors
