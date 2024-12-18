@@ -7,7 +7,7 @@ def scan_ports(host, startport = 1, endport = 1024):
         sock.settimeout(1)  # Set a connection timeout
 
         result = sock.connect_ex((host, port))
-
+        print("test")
         if result == 0:
             open_ports.append(port)
             print(f"Port {port} is open")
