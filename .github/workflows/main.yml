@@ -3,7 +3,6 @@ name: Secure Pipeline
 on:
   pull_request: # Zorgt ervoor dat de workflow bij elke pull request draait
     branches:
-      - main
       - dev
 
 jobs:
