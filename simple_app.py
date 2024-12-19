@@ -1,7 +1,7 @@
 from flask import Flask
 
 app = Flask(__name__)
-
+password = "test123"
 @app.route("/")
 def home():
     return "Hello, world!"
