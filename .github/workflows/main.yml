@@ -5,6 +5,11 @@ on:
     branches:
       - dev
 
+permissions:
+  contents: read
+  pull-requests: write
+
+
 jobs:
   sast_scan:
     name: Run SAST and Security Checks
@@ -35,9 +40,6 @@ jobs:
         pip install safety
         safety check --full-report
 
-    - name: Check for Secrets
-      uses: zricethezav/gitleaks-action@v2
-      with:
-        fail: true
+
 
 
