@@ -4,7 +4,9 @@ on:
   pull_request: # Zorgt ervoor dat de workflow bij elke pull request draait
     branches:
       - dev
-
+  schedule:
+    - cron: '0 0 * * 1'
+    
 permissions:
   contents: read
   pull-requests: write
