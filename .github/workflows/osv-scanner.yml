@@ -17,7 +17,7 @@ on:
   merge_group:
     branches: [ "dev" ]
   schedule:
-    - cron: '23 13 * * 1'
+    - cron: '0 0 * * 1'
   push:
     branches: [ "dev" ]
 
